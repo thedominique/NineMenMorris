@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct NMM_View: View {
+    @EnvironmentObject var game: NMM_VM
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Board()
+            .stroke(Color.black)
+            .frame(width: 300, height: 300)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        NMM_View().environmentObject(NMM_VM())
     }
 }

@@ -7,19 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D8EE762256466C8000AB487 /* NineMenMorrisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE761256466C8000AB487 /* NineMenMorrisApp.swift */; };
-		9D8EE764256466C8000AB487 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE763256466C8000AB487 /* ContentView.swift */; };
+		9D857C802564730600E37345 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D857C7F2564730600E37345 /* Board.swift */; };
+		9D8EE762256466C8000AB487 /* NMM_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE761256466C8000AB487 /* NMM_App.swift */; };
+		9D8EE764256466C8000AB487 /* NMM_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE763256466C8000AB487 /* NMM_View.swift */; };
 		9D8EE766256466CC000AB487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D8EE765256466CC000AB487 /* Assets.xcassets */; };
 		9D8EE769256466CC000AB487 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D8EE768256466CC000AB487 /* Preview Assets.xcassets */; };
+		9D8EE77325646730000AB487 /* NMM_VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE77225646730000AB487 /* NMM_VM.swift */; };
+		9D8EE7762564676A000AB487 /* NMM_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE7752564676A000AB487 /* NMM_Model.swift */; };
+		9D951B642564692B0020FA02 /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D951B632564692B0020FA02 /* Teams.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D857C7F2564730600E37345 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		9D8EE75E256466C8000AB487 /* NineMenMorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineMenMorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D8EE761256466C8000AB487 /* NineMenMorrisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NineMenMorrisApp.swift; sourceTree = "<group>"; };
-		9D8EE763256466C8000AB487 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9D8EE761256466C8000AB487 /* NMM_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_App.swift; sourceTree = "<group>"; };
+		9D8EE763256466C8000AB487 /* NMM_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_View.swift; sourceTree = "<group>"; };
 		9D8EE765256466CC000AB487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D8EE768256466CC000AB487 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9D8EE76A256466CC000AB487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D8EE77225646730000AB487 /* NMM_VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_VM.swift; sourceTree = "<group>"; };
+		9D8EE7752564676A000AB487 /* NMM_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_Model.swift; sourceTree = "<group>"; };
+		9D951B632564692B0020FA02 /* Teams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,11 +60,15 @@
 		9D8EE760256466C8000AB487 /* NineMenMorris */ = {
 			isa = PBXGroup;
 			children = (
-				9D8EE761256466C8000AB487 /* NineMenMorrisApp.swift */,
-				9D8EE763256466C8000AB487 /* ContentView.swift */,
+				9D8EE761256466C8000AB487 /* NMM_App.swift */,
+				9D8EE763256466C8000AB487 /* NMM_View.swift */,
 				9D8EE765256466CC000AB487 /* Assets.xcassets */,
 				9D8EE76A256466CC000AB487 /* Info.plist */,
 				9D8EE767256466CC000AB487 /* Preview Content */,
+				9D8EE77225646730000AB487 /* NMM_VM.swift */,
+				9D8EE7752564676A000AB487 /* NMM_Model.swift */,
+				9D951B632564692B0020FA02 /* Teams.swift */,
+				9D857C7F2564730600E37345 /* Board.swift */,
 			);
 			path = NineMenMorris;
 			sourceTree = "<group>";
@@ -138,8 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8EE764256466C8000AB487 /* ContentView.swift in Sources */,
-				9D8EE762256466C8000AB487 /* NineMenMorrisApp.swift in Sources */,
+				9D8EE77325646730000AB487 /* NMM_VM.swift in Sources */,
+				9D8EE764256466C8000AB487 /* NMM_View.swift in Sources */,
+				9D8EE7762564676A000AB487 /* NMM_Model.swift in Sources */,
+				9D857C802564730600E37345 /* Board.swift in Sources */,
+				9D8EE762256466C8000AB487 /* NMM_App.swift in Sources */,
+				9D951B642564692B0020FA02 /* Teams.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

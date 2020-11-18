@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct NineMenMorrisApp: App {
+struct NMM_App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NMM_View().environmentObject(NMM_VM())
         }
     }
 }
