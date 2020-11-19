@@ -8,21 +8,53 @@
 import Foundation
 
 struct NMM_Model {
-    private(set) var pieces: [Piece]
-    private(set) var whosTurn: Teams
+    private (set) var blackTeam : team
+    private (set) var whiteTeam : team
     
     init(){
-        pieces = [Piece]()
-        for _ in 0..<10{
-            self.pieces.append(Piece(inPlay: true, team: Teams.black))
-            self.pieces.append(Piece(inPlay: true, team: Teams.white))
-        }
-        self.whosTurn = Teams.white
+        blackTeam = team(t: Teams.black)
+        whiteTeam = team(t: Teams.white)
     }
     
-    struct Piece {
-        private(set) var position: [[Int]]?
-        private(set) var inPlay: Bool
-        private(set) var team: Teams
+    struct team {
+        private(set) var pieces: [Piece]
+        
+        init(t : Teams){
+            pieces = [Piece]()
+            for _ in 0..<10{
+                self.pieces.append(Piece(team: t))
+            }
+        }
+        
+        mutating func changePosition(x: Int, y: Int){
+            
+        }
+        
+        struct Piece : Identifiable {
+            private(set) var x : Int
+            private(set) var y : Int
+            private(set) var team: Teams
+            private(set) var id = UUID()
+           
+            init(team: Teams) {
+                self.x = 0
+                self.y = 0
+                self.team = team
+            }
+            
+            mutating func changePosition(x: Int, y: Int){
+                self.x += x
+                self.y += y
+            }
+
+        }
     }
+    
+   
+    
 }
+
+
+
+
+
