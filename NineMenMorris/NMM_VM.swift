@@ -14,16 +14,16 @@ class NMM_VM: ObservableObject{
     
     // MARK: - intents
     
-    func movePiece(_ piece : NMM_Model.team.Piece, by offset: CGSize){
-        
-        if let index = self.gameState.blackTeam.pieces.firstIndex(matching: piece){
-            self.gameState.blackTeam.pieces[index].changePosition(x: Int(offset.width), y: Int(offset.height))
-        }
-        
+//    func movePiece(_ piece : NMM_Model.team.Piece, by offset: CGSize){
+//        
+//        if let index = self.gameState.blackTeam.pieces.firstIndex(matching: piece){
+//            self.gameState.blackTeam.pieces[index].changePosition(x: Int(offset.width), y: Int(offset.height))
+//        }
+//        
         
         
     }
     
-}
+
 
 

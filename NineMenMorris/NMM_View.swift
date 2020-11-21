@@ -14,9 +14,6 @@ struct NMM_View: View {
         VStack {
             ZStack {
                 Board()
-                    .stroke(Color.black)
-                    .frame(width: 300, height: 300)
-                
             }.padding()
             
             HStack {

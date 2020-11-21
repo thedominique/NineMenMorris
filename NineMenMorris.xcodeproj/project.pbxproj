@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0186FD29256678E1002B0027 /* NMM_gameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FD28256678E0002B0027 /* NMM_gameExtensions.swift */; };
+		0186FD2D25695EFC002B0027 /* NMM_Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FD2C25695EFC002B0027 /* NMM_Rules.swift */; };
+		0186FD30256968E7002B0027 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FD2F256968E7002B0027 /* BoardPosition.swift */; };
 		9D857C802564730600E37345 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D857C7F2564730600E37345 /* Board.swift */; };
 		9D8EE762256466C8000AB487 /* NMM_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE761256466C8000AB487 /* NMM_App.swift */; };
 		9D8EE764256466C8000AB487 /* NMM_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EE763256466C8000AB487 /* NMM_View.swift */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		0186FD28256678E0002B0027 /* NMM_gameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_gameExtensions.swift; sourceTree = "<group>"; };
+		0186FD2C25695EFC002B0027 /* NMM_Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_Rules.swift; sourceTree = "<group>"; };
+		0186FD2F256968E7002B0027 /* BoardPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPosition.swift; sourceTree = "<group>"; };
 		9D857C7F2564730600E37345 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		9D8EE75E256466C8000AB487 /* NineMenMorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineMenMorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D8EE761256466C8000AB487 /* NMM_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMM_App.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				9D8EE7752564676A000AB487 /* NMM_Model.swift */,
 				9D951B632564692B0020FA02 /* Teams.swift */,
 				9D857C7F2564730600E37345 /* Board.swift */,
+				0186FD2F256968E7002B0027 /* BoardPosition.swift */,
+				0186FD2C25695EFC002B0027 /* NMM_Rules.swift */,
 			);
 			path = NineMenMorris;
 			sourceTree = "<group>";
@@ -157,7 +163,9 @@
 				0186FD29256678E1002B0027 /* NMM_gameExtensions.swift in Sources */,
 				9D8EE764256466C8000AB487 /* NMM_View.swift in Sources */,
 				9D8EE7762564676A000AB487 /* NMM_Model.swift in Sources */,
+				0186FD2D25695EFC002B0027 /* NMM_Rules.swift in Sources */,
 				9D857C802564730600E37345 /* Board.swift in Sources */,
+				0186FD30256968E7002B0027 /* BoardPosition.swift in Sources */,
 				9D8EE762256466C8000AB487 /* NMM_App.swift in Sources */,
 				9D951B642564692B0020FA02 /* Teams.swift in Sources */,
 			);
