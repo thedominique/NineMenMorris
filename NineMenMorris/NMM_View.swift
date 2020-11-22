@@ -16,8 +16,14 @@ struct NMM_View: View {
                 Board().scaledToFit()
             }.padding()
             HStack {
-                menu(team: Teams.black, pieces: testData)
-                menu(team: Teams.white, pieces: testData2)
+                ForEach(0..<game.getRedTeamSize(), id: \.self){ piece in
+                    Text(NMM_VM.red).onDrag({ NSItemProvider(object: NMM_VM.red as NSString) })
+                }
+                ForEach(0..<game.getBlueTeamSize(), id: \.self){ piece in
+                    Text(NMM_VM.blue).onDrag({ NSItemProvider(object: NMM_VM.blue as NSString) })
+                }
+//                menu(team: Teams.black, pieces: testData)
+//                menu(team: Teams.white, pieces: testData2)
             }
         }
     }
@@ -28,10 +34,6 @@ struct ContentView_Previews: PreviewProvider {
         NMM_View().environmentObject(NMM_VM())
     }
 }
-
-
-
-
 
 struct piece : View, Identifiable {
     var id: Int

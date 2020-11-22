@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Board: View {
+    @EnvironmentObject var gameState: NMM_VM
     @State var rect: CGPoint = CGPoint()
     var body : some View {
         GeometryReader { geometry in
@@ -16,7 +17,7 @@ struct Board: View {
                 .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 // .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                 .clipped()
-            BoardPosition(rect: $rect).foregroundColor(Color.clear)
+            BoardPosition(rect: $rect)
         }
     }
 }

@@ -9,7 +9,28 @@ import Foundation
 import SwiftUI
 
 class NMM_VM: ObservableObject{
-    @Published var gameState: NMM_Model = NMM_Model()
+    @Published var gameState: NineMenMorrisRules = NineMenMorrisRules()
+    
+    static let red = "🔴"
+    static let blue = "🔵"
+    
+    func getRedTeamSize() -> Int{
+        print(gameState.redmarker)
+        return gameState.redmarker
+    }
+    func getBlueTeamSize() -> Int{
+        return gameState.bluemarker
+    }
+    
+    func legalMove(To: Int, From: Int, piece: String) -> Bool{
+        if(piece == NMM_VM.red){
+            print("VM")
+            return gameState.legalMove(To: To, From: From, color: 2)
+        }else if(piece == NMM_VM.blue){
+            return gameState.legalMove(To: To, From: From, color: 1)
+        }
+        return false
+    }
     
     
     // MARK: - intents

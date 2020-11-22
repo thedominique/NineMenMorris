@@ -24,21 +24,21 @@ import Foundation
  * 21           18           15
  *
  */
-
-class NineMenMorrisRules {
+// MARK: - ADD IF THREE IN A ROW???
+struct NineMenMorrisRules {
     private var gameplan : [Int]
-    private var bluemarker, redmarker : Int
-    private var turn : Int
+    private(set) var bluemarker, redmarker : Int
+    private(set) var turn : Int
 
-    static let BLUE_MOVES : Int = 1;
-    static let RED_MOVES: Int = 2;
+    private static let BLUE_MOVES : Int = 1;
+    private static let RED_MOVES: Int = 2;
 
-    static let EMPTY_SPACE: Int = 0;
-    static let BLUE_MARKER : Int = 4;
-    static let RED_MARKER: Int = 5;
+    private static let EMPTY_SPACE: Int = 0;
+    private static let BLUE_MARKER : Int = 4;
+    private static let RED_MARKER: Int = 5;
 
     init() {
-        gameplan = [25]; // zeroes
+        gameplan = Array.init(repeating: 0, count: 25); // zeroes
         bluemarker = 9;
         redmarker = 9;
         turn = NineMenMorrisRules.RED_MOVES;
@@ -47,7 +47,7 @@ class NineMenMorrisRules {
     /**
      * Returns true if a move is successful
      */
-    func  legalMove(To : Int, From : Int, color : Int) -> Bool{
+    mutating func legalMove(To : Int, From : Int, color : Int) -> Bool{
         if (color == turn) {
             if (turn == NineMenMorrisRules.RED_MOVES) {
                 if (redmarker >= 0) {
@@ -55,6 +55,7 @@ class NineMenMorrisRules {
                         gameplan[To] = NineMenMorrisRules.RED_MARKER;
                         self.redmarker-=1;
                         turn = NineMenMorrisRules.BLUE_MOVES;
+                        print("This succeded")
                         return true;
                     }
                 }
@@ -159,7 +160,7 @@ class NineMenMorrisRules {
      * Request to remove a marker for the selected player.
      * Returns true if the marker where successfully removed
      */
-    func remove(From: Int, color: Int) -> Bool{
+    mutating func remove(From: Int, color: Int) -> Bool{
         if (gameplan[From] == color) {
             gameplan[From] = NineMenMorrisRules.EMPTY_SPACE;
             return true
