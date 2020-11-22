@@ -8,23 +8,18 @@
 import SwiftUI
 
 struct Board: View {
+    @State var rect: CGPoint = CGPoint()
     var body : some View {
         GeometryReader { geometry in
-            ZStack{
-            Image("ninemen").resizable()
+            Image("ninemen")
+                .resizable()
                 .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 // .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                 .clipped()
-                BoardPosition()
-            }
+            BoardPosition(rect: $rect).foregroundColor(Color.clear)
         }
     }
-    
 }
-
-
-
-
 
 struct Board_Previews: PreviewProvider {
     static var previews: some View {

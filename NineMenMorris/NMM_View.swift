@@ -13,9 +13,8 @@ struct NMM_View: View {
     var body: some View {
         VStack {
             ZStack {
-                Board()
+                Board().scaledToFit()
             }.padding()
-            
             HStack {
                 menu(team: Teams.black, pieces: testData)
                 menu(team: Teams.white, pieces: testData2)
@@ -39,9 +38,9 @@ struct piece : View, Identifiable {
     let team : Teams
     var body : some View {
         if(team == Teams.black){
-            Text("⚫️")
+            Text("⚫️").font(.title)
         } else if(team == Teams.white){
-            Text("⚪️")
+            Text("⚪️").font(.title)
         }
         
     }
