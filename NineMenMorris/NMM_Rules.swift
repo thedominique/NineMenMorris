@@ -24,7 +24,6 @@ import Foundation
  * 21           18           15
  *
  */
-// MARK: - ADD IF THREE IN A ROW???
 struct NineMenMorrisRules {
     private var gameplan : [Int]
     private(set) var bluemarker, redmarker : Int
@@ -163,6 +162,7 @@ struct NineMenMorrisRules {
     mutating func remove(From: Int, color: Int) -> Bool{
         if (gameplan[From] == color) {
             gameplan[From] = NineMenMorrisRules.EMPTY_SPACE;
+            print(gameplan[From])
             return true
         } else{ return false}
     }

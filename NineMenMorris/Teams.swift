@@ -8,5 +8,5 @@
 import Foundation
 
 enum Teams {
-    case black, white
+    case red, blue
 }

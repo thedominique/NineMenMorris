@@ -15,9 +15,8 @@ struct Board: View {
             Image("ninemen")
                 .resizable()
                 .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
-                // .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                 .clipped()
-            BoardPosition(rect: $rect)
+            BoardGrid(menLeft: (gameState.getBlueTeamSize()+gameState.getRedTeamSize()), rect: $rect)
         }
     }
 }

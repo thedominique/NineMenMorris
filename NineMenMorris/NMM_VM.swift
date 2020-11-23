@@ -13,6 +13,9 @@ class NMM_VM: ObservableObject{
     
     static let red = "🔴"
     static let blue = "🔵"
+    private let approvedPos: Set = ["00", "03", "06", "11", "13", "15", "22", "23", "24", "30", "31", "32", "34", "35", "36", "42", "43", "44","51", "53", "55", "60", "63", "66"]
+    
+    private let indexTable = ["00": 3, "03": 6, "06": 9, "11": 2, "13": 5, "15": 8, "22": 1, "23": 4, "24": 7, "30": 24, "31": 23, "32": 22, "34": 10, "35": 11, "36": 12, "42": 19, "43": 16, "44": 13,"51": 20, "53": 17, "55": 14, "60": 21, "63": 18, "66": 15]
     
     func getRedTeamSize() -> Int{
         print(gameState.redmarker)
@@ -20,6 +23,21 @@ class NMM_VM: ObservableObject{
     }
     func getBlueTeamSize() -> Int{
         return gameState.bluemarker
+    }
+    
+    func checkSquareValidity(row: Int, column: Int) -> Bool{
+        if approvedPos.contains(row.description+column.description){
+            return true;
+        }
+        return false
+    }
+    
+    func getSquare(row: Int, column: Int) -> Int{
+        if let index = indexTable[row.description+column.description]{
+            return index
+        } else{
+            assert(1 == 2, "Row and Column are wrong")
+        }
     }
     
     func legalMove(To: Int, From: Int, piece: String) -> Bool{
@@ -32,19 +50,18 @@ class NMM_VM: ObservableObject{
         return false
     }
     
-    
-    // MARK: - intents
-    
-//    func movePiece(_ piece : NMM_Model.team.Piece, by offset: CGSize){
-//        
-//        if let index = self.gameState.blackTeam.pieces.firstIndex(matching: piece){
-//            self.gameState.blackTeam.pieces[index].changePosition(x: Int(offset.width), y: Int(offset.height))
-//        }
-//        
-        
-        
+    func checkMill(To: Int) -> Bool {
+        return gameState.remove(to: To)
     }
     
-
-
-
+    func removePiece(from: Int, color: String) -> Bool{
+        print(color)
+        if(color == NMM_VM.red){
+            return gameState.remove(From: from, color: 5)
+        }else if(color == NMM_VM.blue){
+            return gameState.remove(From: from, color: 4)
+        }
+        return false
+        
+    }
+}
