@@ -9,10 +9,8 @@ import SwiftUI
 
 struct BoardGrid: View {
     @EnvironmentObject var gameState: NMM_VM
-    @State var piece: [String] = Array.init(repeating: "", count: 25)
-    @State var isRemoveable: [Bool] = Array.init(repeating: false, count: 25)
-    @State var menLeft: Int
     @Binding var rect: CGPoint
+    
     var body: some View{
         GeometryReader{
             geometry in
@@ -21,8 +19,7 @@ struct BoardGrid: View {
                     HStack(spacing: 0){
                         ForEach(0..<7){column in
                             if gameState.checkSquareValidity(row: row, column: column){
-                                let position = gameState.getSquare(row: row, column: column)
-                                BoardSquare(team: $piece[position], removeable: $isRemoveable, position: position)
+                                BoardSquare(row: row, column: column)
                                     .frame(width: geometry.size.width/7, height: geometry.size.height/7)
                                     .onDrop(of: ["public.text"], isTargeted: nil){ providers in
                                         return self.drop(providers: providers, row: row, column: column)
@@ -41,30 +38,30 @@ struct BoardGrid: View {
     
     private func drop(providers: [NSItemProvider], row: Int, column: Int) -> Bool{
         if let found = providers.first {
-            found.loadItem(forTypeIdentifier: "public.text", options: nil, completionHandler: {(emoji, error) in
-                DispatchQueue.main.async {
-                    if let emoji = emoji as? Data {
-                        let gamePiece = String(decoding: emoji, as: UTF8.self)
-                        if(gameState.legalMove(To: gameState.getSquare(row: row, column: column), From: 0, piece: gamePiece)){
-                            let position = gameState.getSquare(row: row, column: column)
-                            self.piece[position] = gamePiece
-                            if(gameState.checkMill(To: gameState.getSquare(row: row, column: column))){
-                                if(gamePiece == NMM_VM.red){
-                                    for index in 0..<self.piece.count {
-                                        if(piece[index] == NMM_VM.blue){
-                                            self.isRemoveable[index] = true
-                                        }
-                                    }
-                                }else if(gamePiece == NMM_VM.blue){
-                                    for index in 0..<self.piece.count {
-                                        if(piece[index] == NMM_VM.red){
-                                            self.isRemoveable[index] = true
-                                        }
-                                    }
-                                }
+            _ = found.loadObject(ofClass: String.self, completionHandler: { stringdata,error in
+                if(error == nil){
+                    if let emoji = stringdata {
+                        DispatchQueue.main.async {
+                            var color = emoji
+                            var destrow = 8
+                            var destcol = 8
+                            if(emoji.count == 3){
+                                color = emoji[emoji.index(emoji.startIndex, offsetBy: 0)].description
+                                destrow = Int.init(emoji[emoji.index(emoji.startIndex, offsetBy: 1)].description)!
+                                destcol = Int.init(emoji[emoji.index(emoji.startIndex, offsetBy: 2)].description)!
+                            }
+                            if(gameState.legalMove(row: row, column: column, destRow: destrow, destCol: destcol, piece: color)){
+                                print("Checking Mill")
+                                gameState.checkMill(row: row, column: column, color: color)
+                            }else{
                             }
                         }
                     }
+                }else{
+                    print("""
+                There was an error in loading the drop item: ### \(#function),
+                \(String(describing: error?.localizedDescription))
+                """)
                 }
             })
             return true

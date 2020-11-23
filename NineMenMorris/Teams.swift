@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Teams {
-    case red, blue
+enum Teams: String {
+    case red = "🔴", blue = "🔵", none = ""
 }
