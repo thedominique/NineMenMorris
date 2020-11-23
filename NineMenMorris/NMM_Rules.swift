@@ -24,8 +24,8 @@ import Foundation
  * 21           18           15
  *
  */
-struct NineMenMorrisRules {
-    private(set) var gameplan : [Int]
+struct NineMenMorrisRules : Codable {
+    private var gameplan : [Int]
     private(set) var bluemarker, redmarker : Int
     private(set) var turn : Int
     
@@ -41,6 +41,46 @@ struct NineMenMorrisRules {
         bluemarker = 9;
         redmarker = 9;
         turn = NineMenMorrisRules.RED_MOVES;
+    }
+    
+    init(model: NineMenMorrisRules){
+        self.gameplan = model.gameplan
+        self.bluemarker = model.bluemarker
+        self.redmarker = model.redmarker
+        turn = model.turn
+    }
+    
+    mutating func readFromStorage() {
+        if let data = UserDefaults.standard.data(forKey: "AbrelmandDomperNineMenMorrisData") {
+            do {
+                // Create JSON Decoder
+                let decoder = JSONDecoder()
+                
+                // Decode model
+                let model = try decoder.decode(NineMenMorrisRules.self, from: data)
+                self.gameplan = model.gameplan
+                self.bluemarker = model.bluemarker
+                self.redmarker = model.redmarker
+            } catch {
+                print("Unable to Decode Note (\(error))")
+            }
+        }
+    }
+    
+    func updateStorage(){
+        do {
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+            
+            // Encode Note
+            let data = try encoder.encode(self)
+            
+            // Write/Set Data
+            UserDefaults.standard.set(data, forKey: "AbrelmandDomperNineMenMorrisData")
+            
+        } catch {
+            print("Unable to Encode Note (\(error))")
+        }
     }
 
     /**

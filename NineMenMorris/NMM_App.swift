@@ -11,7 +11,7 @@ import SwiftUI
 struct NMM_App: App {
     var body: some Scene {
         WindowGroup {
-            NMM_View().environmentObject(NMM_VM())
+            SplashView().environmentObject(NMM_VM())
         }
     }
 }
