@@ -25,10 +25,10 @@ import Foundation
  *
  */
 struct NineMenMorrisRules {
-    private var gameplan : [Int]
+    private(set) var gameplan : [Int]
     private(set) var bluemarker, redmarker : Int
     private(set) var turn : Int
-
+    
     private static let BLUE_MOVES : Int = 1;
     private static let RED_MOVES: Int = 2;
 
@@ -49,7 +49,7 @@ struct NineMenMorrisRules {
     mutating func legalMove(To : Int, From : Int, color : Int) -> Bool{
         if (color == turn) {
             if (turn == NineMenMorrisRules.RED_MOVES) {
-                if (redmarker >= 0) {
+                if (redmarker > 0) {
                     if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                         gameplan[To] = NineMenMorrisRules.RED_MARKER;
                         self.redmarker-=1;
@@ -62,6 +62,7 @@ struct NineMenMorrisRules {
                 if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                     let valid = isValidMove(to: To, from: From);
                     if (valid == true) {
+                        gameplan[From] = NineMenMorrisRules.EMPTY_SPACE
                         gameplan[To] = NineMenMorrisRules.RED_MARKER;
                         turn = NineMenMorrisRules.BLUE_MOVES;
                         return true;
@@ -72,7 +73,7 @@ struct NineMenMorrisRules {
                     return false;
                 }
             } else {
-                if (bluemarker >= 0) {
+                if (bluemarker > 0) {
                     if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                         gameplan[To] = NineMenMorrisRules.BLUE_MARKER;
                         bluemarker-=1;
@@ -83,6 +84,7 @@ struct NineMenMorrisRules {
                 if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                     let valid = isValidMove(to: To, from: From);
                     if (valid == true) {
+                        gameplan[From] = NineMenMorrisRules.EMPTY_SPACE
                         gameplan[To] = NineMenMorrisRules.BLUE_MARKER;
                         turn = NineMenMorrisRules.RED_MOVES;
                         return true;
@@ -162,7 +164,6 @@ struct NineMenMorrisRules {
     mutating func remove(From: Int, color: Int) -> Bool{
         if (gameplan[From] == color) {
             gameplan[From] = NineMenMorrisRules.EMPTY_SPACE;
-            print(gameplan[From])
             return true
         } else{ return false}
     }

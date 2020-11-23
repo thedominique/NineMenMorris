@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NMM_View: View {
     @EnvironmentObject var game: NMM_VM
+    
     var body: some View {
         VStack {
             ZStack {
@@ -16,10 +17,18 @@ struct NMM_View: View {
             }.padding()
             HStack {
                 ForEach(0..<game.getRedTeamSize(), id: \.self){ piece in
-                    Text(NMM_VM.red).onDrag({ NSItemProvider(object: NMM_VM.red as NSString) })
+                    if(game.remove == Teams.none){
+                        Text(NMM_VM.red).onDrag({ NSItemProvider(object: NMM_VM.red as NSString) })
+                    } else{
+                        Text(NMM_VM.red)
+                    }
                 }
                 ForEach(0..<game.getBlueTeamSize(), id: \.self){ piece in
-                    Text(NMM_VM.blue).onDrag({ NSItemProvider(object: NMM_VM.blue as NSString) })
+                    if(game.remove == Teams.none){
+                        Text(NMM_VM.blue).onDrag({ NSItemProvider(object: NMM_VM.blue as NSString) })
+                    } else {
+                        Text(NMM_VM.blue)
+                    }
                 }
             }
         }

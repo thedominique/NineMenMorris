@@ -9,13 +9,17 @@ import Foundation
 import SwiftUI
 
 class NMM_VM: ObservableObject{
-    @Published var gameState: NineMenMorrisRules = NineMenMorrisRules()
+    @Published private var gameState: NineMenMorrisRules = NineMenMorrisRules()
+    
+    private(set) var remove: Teams = Teams.none
+    
+    private(set) static var win: Bool = false
     
     static let red = "🔴"
     static let blue = "🔵"
     private let approvedPos: Set = ["00", "03", "06", "11", "13", "15", "22", "23", "24", "30", "31", "32", "34", "35", "36", "42", "43", "44","51", "53", "55", "60", "63", "66"]
     
-    private let indexTable = ["00": 3, "03": 6, "06": 9, "11": 2, "13": 5, "15": 8, "22": 1, "23": 4, "24": 7, "30": 24, "31": 23, "32": 22, "34": 10, "35": 11, "36": 12, "42": 19, "43": 16, "44": 13,"51": 20, "53": 17, "55": 14, "60": 21, "63": 18, "66": 15]
+    private let indexTable = ["00": 3, "03": 6, "06": 9, "11": 2, "13": 5, "15": 8, "22": 1, "23": 4, "24": 7, "30": 24, "31": 23, "32": 22, "34": 10, "35": 11, "36": 12, "42": 19, "43": 16, "44": 13,"51": 20, "53": 17, "55": 14, "60": 21, "63": 18, "66": 15, "88": 0]
     
     func getRedTeamSize() -> Int{
         print(gameState.redmarker)
@@ -25,6 +29,24 @@ class NMM_VM: ObservableObject{
         return gameState.bluemarker
     }
     
+    func restart(){
+        gameState = NineMenMorrisRules()
+    }
+    
+    func getPieceTeam(row: Int, column: Int) -> String {
+        let position = self.getSquare(row: row, column: column)
+        let color = gameState.gameplan[position]
+        if(color == 4){
+            return NMM_VM.blue
+        }
+        else if(color == 5){
+            return NMM_VM.red
+        }
+        else{
+            return ""
+        }
+    }
+    
     func checkSquareValidity(row: Int, column: Int) -> Bool{
         if approvedPos.contains(row.description+column.description){
             return true;
@@ -32,17 +54,27 @@ class NMM_VM: ObservableObject{
         return false
     }
     
-    func getSquare(row: Int, column: Int) -> Int{
+    private func getSquare(row: Int, column: Int) -> Int{
         if let index = indexTable[row.description+column.description]{
             return index
         } else{
-            assert(1 == 2, "Row and Column are wrong")
+            assert(1 == 2, "Error: Row and Column have gone outside scope")
         }
     }
     
-    func legalMove(To: Int, From: Int, piece: String) -> Bool{
+    func getWinner() -> String {
+        if(gameState.win(color: 4)){
+            return NMM_VM.blue
+        }
+        else {
+            return NMM_VM.red
+        }
+    }
+    
+    func legalMove(row: Int, column: Int, destRow: Int, destCol: Int, piece: String) -> Bool{
+        let To = self.getSquare(row: row, column: column)
+        let From = self.getSquare(row: destRow, column: destCol)
         if(piece == NMM_VM.red){
-            print("VM")
             return gameState.legalMove(To: To, From: From, color: 2)
         }else if(piece == NMM_VM.blue){
             return gameState.legalMove(To: To, From: From, color: 1)
@@ -50,18 +82,36 @@ class NMM_VM: ObservableObject{
         return false
     }
     
-    func checkMill(To: Int) -> Bool {
-        return gameState.remove(to: To)
+    func checkMill(row: Int, column: Int, color: String) {
+        let To = self.getSquare(row: row, column: column)
+        if(gameState.remove(to: To) == true){
+            if(color == NMM_VM.red){
+                print("Setting remove blue")
+                self.remove = Teams.blue
+            }else{
+                print("Setting remove red")
+                self.remove = Teams.red
+            }
+        }
     }
     
-    func removePiece(from: Int, color: String) -> Bool{
+    func removePiece(row: Int, column: Int, color: String){
+        let from = self.getSquare(row: row, column: column)
         print(color)
         if(color == NMM_VM.red){
-            return gameState.remove(From: from, color: 5)
+            if(gameState.remove(From: from, color: 5)){
+                if(gameState.win(color: 4)){
+                    NMM_VM.win = true
+                }
+                self.remove = Teams.none
+            }
         }else if(color == NMM_VM.blue){
-            return gameState.remove(From: from, color: 4)
+            if(gameState.remove(From: from, color: 4)){
+                if(gameState.win(color: 5)){
+                    NMM_VM.win = true
+                }
+                self.remove = Teams.none
+            }
         }
-        return false
-        
     }
 }
