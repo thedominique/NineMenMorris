@@ -16,7 +16,7 @@ struct Board: View {
                 .resizable()
                 .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .clipped()
-            BoardGrid(menLeft: (gameState.getBlueTeamSize()+gameState.getRedTeamSize()), rect: $rect)
+            BoardGrid(rect: $rect)
         }
     }
 }

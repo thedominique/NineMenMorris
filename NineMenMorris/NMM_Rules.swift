@@ -24,11 +24,11 @@ import Foundation
  * 21           18           15
  *
  */
-struct NineMenMorrisRules {
+struct NineMenMorrisRules : Codable {
     private var gameplan : [Int]
     private(set) var bluemarker, redmarker : Int
     private(set) var turn : Int
-
+    
     private static let BLUE_MOVES : Int = 1;
     private static let RED_MOVES: Int = 2;
 
@@ -42,6 +42,46 @@ struct NineMenMorrisRules {
         redmarker = 9;
         turn = NineMenMorrisRules.RED_MOVES;
     }
+    
+    init(model: NineMenMorrisRules){
+        self.gameplan = model.gameplan
+        self.bluemarker = model.bluemarker
+        self.redmarker = model.redmarker
+        turn = model.turn
+    }
+    
+    mutating func readFromStorage() {
+        if let data = UserDefaults.standard.data(forKey: "AbrelmandDomperNineMenMorrisData") {
+            do {
+                // Create JSON Decoder
+                let decoder = JSONDecoder()
+                
+                // Decode model
+                let model = try decoder.decode(NineMenMorrisRules.self, from: data)
+                self.gameplan = model.gameplan
+                self.bluemarker = model.bluemarker
+                self.redmarker = model.redmarker
+            } catch {
+                print("Unable to Decode Note (\(error))")
+            }
+        }
+    }
+    
+    func updateStorage(){
+        do {
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+            
+            // Encode Note
+            let data = try encoder.encode(self)
+            
+            // Write/Set Data
+            UserDefaults.standard.set(data, forKey: "AbrelmandDomperNineMenMorrisData")
+            
+        } catch {
+            print("Unable to Encode Note (\(error))")
+        }
+    }
 
     /**
      * Returns true if a move is successful
@@ -49,7 +89,7 @@ struct NineMenMorrisRules {
     mutating func legalMove(To : Int, From : Int, color : Int) -> Bool{
         if (color == turn) {
             if (turn == NineMenMorrisRules.RED_MOVES) {
-                if (redmarker >= 0) {
+                if (redmarker > 0) {
                     if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                         gameplan[To] = NineMenMorrisRules.RED_MARKER;
                         self.redmarker-=1;
@@ -62,6 +102,7 @@ struct NineMenMorrisRules {
                 if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                     let valid = isValidMove(to: To, from: From);
                     if (valid == true) {
+                        gameplan[From] = NineMenMorrisRules.EMPTY_SPACE
                         gameplan[To] = NineMenMorrisRules.RED_MARKER;
                         turn = NineMenMorrisRules.BLUE_MOVES;
                         return true;
@@ -72,7 +113,7 @@ struct NineMenMorrisRules {
                     return false;
                 }
             } else {
-                if (bluemarker >= 0) {
+                if (bluemarker > 0) {
                     if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                         gameplan[To] = NineMenMorrisRules.BLUE_MARKER;
                         bluemarker-=1;
@@ -83,6 +124,7 @@ struct NineMenMorrisRules {
                 if (gameplan[To] == NineMenMorrisRules.EMPTY_SPACE) {
                     let valid = isValidMove(to: To, from: From);
                     if (valid == true) {
+                        gameplan[From] = NineMenMorrisRules.EMPTY_SPACE
                         gameplan[To] = NineMenMorrisRules.BLUE_MARKER;
                         turn = NineMenMorrisRules.RED_MOVES;
                         return true;
@@ -162,7 +204,6 @@ struct NineMenMorrisRules {
     mutating func remove(From: Int, color: Int) -> Bool{
         if (gameplan[From] == color) {
             gameplan[From] = NineMenMorrisRules.EMPTY_SPACE;
-            print(gameplan[From])
             return true
         } else{ return false}
     }
