@@ -51,8 +51,8 @@ struct BoardGrid: View {
                                 destcol = Int.init(emoji[emoji.index(emoji.startIndex, offsetBy: 2)].description)!
                             }
                             if(gameState.legalMove(row: row, column: column, destRow: destrow, destCol: destcol, piece: color)){
-                                print("Checking Mill")
                                 gameState.checkMill(row: row, column: column, color: color)
+                                
                             }else{
                             }
                         }
@@ -66,7 +66,6 @@ struct BoardGrid: View {
             })
             return true
         } else{
-            print("No Go")
             return false
         }
     }

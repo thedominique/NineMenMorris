@@ -40,63 +40,60 @@ struct SplashView: View {
 
 struct NMM_menu : View {
     @State private var selection: String? = nil
-
-        var body: some View {
-            NavigationView {
-                VStack {
-                    //start game
-                    NavigationLink(destination: NMM_View(load: false), tag: "NMM_View", selection: $selection) { EmptyView() }
-                    Button(action: {
-                        self.selection = "NMM_View"
-                        print("new game")
-                    }) {
-                        Text("Start new game")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .font(.system(size: 18))
-                            .padding()
-                            .foregroundColor(.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.black, lineWidth: 2)
-                            )
-                    }
-                    // load game
-                    NavigationLink(destination: NMM_View(load: true), tag: "NMM_View", selection: $selection) { EmptyView() }
-                    Button(action: {
-                        self.selection = "NMM_View"
-                        print("new game")
-                    }) {
-                        Text("Load and continue game")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .font(.system(size: 18))
-                            .padding()
-                            .foregroundColor(.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.black, lineWidth: 2)
-                            )
-                    }
-                    // info
-                    NavigationLink(destination: Info_View(), tag: "Info_View", selection: $selection) { EmptyView() }
-                    Button(action: {
-                        self.selection = "Info_View"
-                        print("new game")
-                    }) {
-                        Text("Info")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .font(.system(size: 18))
-                            .padding()
-                            .foregroundColor(.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.black, lineWidth: 2)
-                            )
-                    }
-                    
-                    
-                }
-            }
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                //start game
+                NavigationLink(destination: NMM_View(load: false), tag: "NMM_View", selection: $selection) {  Button(action: {
+                    self.selection = "NMM_View"
+                }) {
+                    Text("Start new game")
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .font(.system(size: 18))
+                        .padding()
+                        .foregroundColor(.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.black, lineWidth: 2)
+                        )
+                } }.padding()
+                
+                // load game
+                NavigationLink(destination: NMM_View(load: true), tag: "NMM_View", selection: $selection) { Button(action: {
+                    self.selection = "NMM_View"
+                }) {
+                    Text("Load and continue game")
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .font(.system(size: 18))
+                        .padding()
+                        .foregroundColor(.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.black, lineWidth: 2)
+                        )
+                } }.padding()
+                
+                // info
+                NavigationLink(destination: Info_View(), tag: "Info_View", selection: $selection) { Button(action: {
+                    self.selection = "Info_View"
+                }) {
+                    Text("Info")
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .font(.system(size: 18))
+                        .padding()
+                        .foregroundColor(.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.black, lineWidth: 2)
+                        )
+                }}.padding()
+                
+                
+                
+            }.background(Color.white)
         }
+    }
     
 }
 
@@ -124,6 +121,9 @@ struct NMM_View: View {
     @State var load : Bool
     var body: some View {
         VStack {
+            HStack{
+                Text(game.getMessage())
+            }.padding()
             ZStack {
                 Board().scaledToFit()
             }.padding()
@@ -142,7 +142,7 @@ struct NMM_View: View {
                         Text(NMM_VM.blue)
                     }
                 }
-            }
+            }.padding()
         }
     }
 }
